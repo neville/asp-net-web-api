@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using asp_net_web_api.Models;
 
 namespace asp_net_web_api
 {
@@ -25,6 +27,7 @@ namespace asp_net_web_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ShopContext>(options => options.UseInMemoryDatabase("Shop"));
             services.AddControllers();
         }
 

@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using asp_net_web_api.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace asp_net_web_api.Controllers
 {
@@ -6,10 +9,19 @@ namespace asp_net_web_api.Controllers
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
-        [HttpGet]
-        public string GetProducts()
+        private readonly ShopContext _context;
+
+        public ProductsController(ShopContext context)
         {
-            return "All OK";
+            _context = context;
+
+            _context.Database.EnsureCreated();
+        }
+
+        [HttpGet]
+        public IEnumerable<Product> GetAllProducts()
+        {
+            return _context.Products.ToArray();
         }
     }
 }
